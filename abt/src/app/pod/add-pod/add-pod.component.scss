@@ -1,0 +1,62 @@
+
+.card{
+
+    margin: 8px;
+}
+ion-menu-button {
+    color: black;
+  }
+
+ion-item{
+    
+    margin:8px;
+}
+
+.validator-error {
+	color: red;
+	margin-left: 10px;
+
+}
+
+.header {
+	width: 3rem;
+	float: right;
+	height: 3rem;
+  }
+
+.btn{
+    text-align: center;
+}
+
+
+h4{
+    //margin-left: 9px;
+    color: black;
+}
+#crumbs ul li a {
+	
+	float: left;
+	height: 70px;
+	background: #3498db;
+	text-align: center;
+	padding: 30px 40px 0 40px;
+	position: relative;
+	margin-left: -18px;
+	
+	font-size: 20px;
+	text-decoration: none;
+	color: #fff;
+}
+ul {
+    list-style-type: none;
+  }
+#crumbs ul li a:after {
+	content: "";  
+	border-top: 40px solid red;
+	border-bottom: 40px solid red;
+	border-left: 40px solid blue;
+    position: absolute; right: -40px; top: 0;
+    border-top: 40px solid transparent;
+border-bottom: 40px solid transparent;
+border-left: 40px solid #3498db;
+}

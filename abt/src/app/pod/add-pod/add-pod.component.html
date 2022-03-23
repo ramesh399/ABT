@@ -1,0 +1,45 @@
+<ion-header translucent="true">
+    <ion-toolbar>
+      <ion-title>POD Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card >
+    <div class="column">
+    <form name="waybillForm" [formGroup]="waybillForm">
+        <ion-item >
+            <ion-label position="floating">Waybill No.<span style="color: red;">*</span></ion-label>
+            <ion-input  [(ngModel)]="scanData" [ngModelOptions]="{standalone: true}" >  </ion-input> <ion-icon style="font-size: 30px;"  name="barcode" (click)="scan()" slot="end"></ion-icon>
+        </ion-item>
+    
+    <div *ngIf="! f.waybill_no.valid && f.waybill_no.touched" class="validator-error">
+        Waybill No. is required
+    </div>
+   
+    <ion-item>
+      <ion-label position="floating">POD Date<span style="color: red;">*</span></ion-label>
+      <!-- <ion-datetime formControlName='callBackDate' [min]="minDate" max="2040-10-31"
+        displayFormat="MMM DD, YY h:mm A" [(ngModel)]="callBackdate"></ion-datetime> -->
+        <li-ionic4-datepicker 
+        formControlName='pod_date' [inputDateConfig]="datePickerObj" >
+      </li-ionic4-datepicker>
+    </ion-item>
+    
+    <div *ngIf="! f.pod_date.valid && f.pod_date.touched" class="validator-error">
+        POD Date is required
+    </div>
+   
+    <div style="margin: 25px; ">
+      <ion-label style="color: black;">POD<span style="color:red">*</span></ion-label><br><br>
+      <img class="user-profile-img" src="{{userImg}}" alt="" height="30px" width="30px" (click) = "openCamera()"><br><br>
+      <input type="file" formControlName="pod_file" (change)="fileChange($event)">
+    </div>
+    <!-- {{userImg}} -->
+    <div class="btn">
+    <ion-button shape="round" [disabled]='waybillForm.invalid' (click)="submit()">Submit <ion-icon
+      name="document-text-outline"></ion-icon>
+  </ion-button>
+  </div>
+</form>
+</div>
+</ion-card>
