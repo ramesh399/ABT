@@ -31,9 +31,14 @@
    
     <div style="margin: 25px; ">
       <ion-label style="color: black;">POD<span style="color:red">*</span></ion-label><br><br>
-      <img class="user-profile-img" src="{{userImg}}" alt="" height="30px" width="30px" (click) = "openCamera()"><br><br>
-      <input type="file" formControlName="pod_file" (change)="fileChange($event)">
-    </div>
+      <img *ngIf="userImg" class="user-profile-img" src="{{userImg}}" alt="" height="30px" width="30px" ><br><br>
+      <ion-button mat-stroked-button shape="round"  class="btnn"   name="camera" (click)="openCamera()" >Take Picture &nbsp;&nbsp; <ion-icon
+        name="camera"></ion-icon></ion-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input hidden type="file" id="file" (change)="fileChange($event)" #fileInput />
+      <ion-button mat-stroked-button shape="round" class="btnn" (click)="fileInput.click()" aria-label="Add file">
+          Upload Image &nbsp;&nbsp;<ion-icon name="cloud-upload"></ion-icon>
+      </ion-button>
+    </div><br><br>
     <!-- {{userImg}} -->
     <div class="btn">
     <ion-button shape="round" [disabled]='waybillForm.invalid' (click)="submit()">Submit <ion-icon

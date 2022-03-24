@@ -14,8 +14,11 @@ export class AddPodComponent implements OnInit {
   waybillForm: FormGroup;
   myDate = new Date();
   scanData: any;
-  
-  constructor(private fb:FormBuilder, public camera : Camera, private scanner : BarcodeScanner, private service : WaybillService) { this.userImg = 'assets/images/camera.png';}
+  formData = new FormData();
+  cameraOpt: boolean =false;
+  fileOpt: boolean =false;
+  uploadfile: any;
+  constructor(private fb:FormBuilder, public camera : Camera, private scanner : BarcodeScanner, private service : WaybillService) { }
 
   ngOnInit() {
 
@@ -80,8 +83,11 @@ export class AddPodComponent implements OnInit {
     mediaType: this.camera.MediaType.PICTURE,
     // allowEdit: true
   }
-
+  uploadtype='';
   openCamera() {
+    this.uploadtype='cameraUpload';
+    this.cameraOpt = false;
+    this.fileOpt = true;
     this.camera.getPicture(this.cameraOptions).then((imgData) => {
     console.log('image data =>  ', imgData);
     this.base64Img = 'data:image/jpeg;base64,' + imgData;
@@ -99,12 +105,39 @@ export class AddPodComponent implements OnInit {
       console.log('Error', err);
     });
   }
+  fileChange(event) {
+    this.uploadtype ='fileUpload';
+    this.cameraOpt = true;
+    this.fileOpt = false;
+    console.log(event)
+       const reader1 = new FileReader();
+       if (event.target.files && event.target.files.length) {
+         const [file] = event.target.files;
+         this.uploadfile = event.target.files[0];
+        //  formData.append('podFile', file, file.name);
+         reader1.readAsDataURL(file);
+        //  this.userImg = reader1.result;
+
+       
+         console.log(reader1)
+         reader1.onload = () => {
+           this.userImg = reader1.result
+         };
+       }
+     }
    
   submit()
   {
-    console.log(this.waybillForm.value,this.scanData);
-    let podData={waybill_no : this.scanData,pod_date:this.waybillForm.get('pod_date').value,pod_image:this.userImg}
-    this.service.addPod(podData).subscribe((res: any) => {
+    // console.log(this.waybillForm.value,this.scanData)
+    // const formData = new FormData();
+    // formData.append('waybill_no',this.scanData);
+    // formData.append('pod_date',this.waybillForm.get('pod_date').value);
+    // formData.append('pod_image',this.userImg);
+    // formData.append('podFile',this.uploadfile,this.uploadfile.name);
+    // formData.append('uploadtype',this.uploadtype)
+    // console.log(formData)
+    // let podData={waybill_no : this.scanData,pod_date:this.waybillForm.get('pod_date').value,pod_image:this.userImg}
+    this.service.addPod({waybill_no:this.scanData,pod_date:this.waybillForm.get('pod_date').value,pod_image:this.userImg}).subscribe((res: any) => {
       if (res.success) {
         
       }

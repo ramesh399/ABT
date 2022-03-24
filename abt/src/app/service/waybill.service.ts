@@ -10,15 +10,23 @@ import { map } from 'rxjs/operators';
 export class WaybillService {
 
   public API_URL = environment.API_URL;
+  token: string;
   constructor(private http: HttpClient) { }
 
   private extractData1(res: any) {
     let body = res;
     return body || {};
   }
+ 
+  private getToken(): string {
+    if (!this.token) {
+      this.token = 'dfa';
+    }
+    return this.token;
+  }
 
   addPod(data): Observable<any> {
-    return this.http.post<any>(this.API_URL + '/api/createbill/', data).pipe(
+    return this.http.post<any>(this.API_URL + '/api/createbill/', data ,{ headers : { Authorization : `Bearer ${this.token}`}}).pipe(
       map(this.extractData1));
   }
 }
