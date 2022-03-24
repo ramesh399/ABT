@@ -1,4 +1,6 @@
-/frontend/node_modules
+/abt/node_modules
 /backend/runtime
 /backend/vendor
 /backend/web
+/server/node_modules
+/uploads
